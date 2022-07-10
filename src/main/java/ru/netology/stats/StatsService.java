@@ -1,28 +1,22 @@
 package ru.netology.stats;
 
 public class StatsService {
-    public int salesAmount(int[] sales) {
-        int sum = 0;
-        for (int sale : sales) {
+    public long sum(long[] sales) {
+        long sum = 0;
+        for (long sale : sales) {
             sum += sale;
         }
         return sum;
     }
 
-    public int averageSalesAmount(int[] sales) {
-        int sum = 0;
-        int averageSalesMonth = 0;
-        for (int sale : sales) {
-            sum += sale;
-        }
-        averageSalesMonth = sum / sales.length;
-        return averageSalesMonth;
+    public long average(long[] sales) {
+        return sum(sales) / 12;
     }
 
-    public int maxSales(int[] sales) {
+    public int maxSales(long[] sales) {
         int maxMonth = 0;
         int month = 0;
-        for (int sale : sales) {
+        for (long sale : sales) {
             if (sale >= sales[maxMonth]) {
                 maxMonth = month;
             }
@@ -31,10 +25,10 @@ public class StatsService {
         return maxMonth + 1;
     }
 
-    public int minSales(int[] sales) {
+    public int minSales(long[] sales) {
         int minMonth = 0;
         int month = 0;
-        for (int sale : sales) {
+        for (long sale : sales) {
             if (sale <= sales[minMonth]) {
                 minMonth = month;
             }
@@ -43,21 +37,23 @@ public class StatsService {
         return minMonth + 1;
     }
 
-    public int belowAverageMonth(int[] sales) {
+    public int belowAverageMonth(long[] sales) {
+        long average = average(sales);
         int numberOfMonths = 0;
-        for (int averageSalesMonth : sales) {
-            if (averageSalesMonth > averageSalesAmount(sales)) {
-                numberOfMonths += 1;
+        for (long sale : sales) {
+            if (sale < average) {
+                numberOfMonths++;
             }
         }
         return numberOfMonths;
     }
 
-    public int aboveAverageMonth(int[] sales) {
+    public int aboveAverageMonth(long[] sales) {
+        long average = average(sales);
         int numberOfMonth = 0;
-        for (int averageSalesMonth : sales) {
-            if (averageSalesMonth < averageSalesAmount(sales)) {
-                numberOfMonth += 1;
+        for (long sale : sales) {
+            if (sale > average) {
+                numberOfMonth++;
             }
         }
         return numberOfMonth;
